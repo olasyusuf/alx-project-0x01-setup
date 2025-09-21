@@ -1,17 +1,34 @@
 import UserCard from "@/components/common/UserCard";
+import UserModal from "@/components/common/UserModal";
 import Header from "@/components/layout/Header";
-import { UserProps } from "@/interfaces";
+import { UserData, UserProps } from "@/interfaces";
+import { useState } from "react";
 
 interface UsersPageProps {
   posts: UserProps[];
 }
 
 const Users: React.FC<UsersPageProps>  = ({ posts }) => {
+
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [user, setUser] = useState<UserData | null>(null);
+    
+  const handelAddUser = (newUser: UserData) => {
+      setUser({...newUser, id: posts.length + 1})
+  };
+  
   return (
     <div className="flex flex-col h-screen">
       <Header />
       <main className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Users</h1>
+        <div className="flex justify-between">
+          <h1 className="text-2xl font-bold mb-4">Users</h1>
+          <button 
+            onClick={() => setModalOpen(true)}
+            className="bg-blue-700 px-4 py-2 rounded-full text-white">
+            Add User
+          </button>
+        </div>
       <div className="space-y-3">
         {
           posts.map((
@@ -32,6 +49,9 @@ const Users: React.FC<UsersPageProps>  = ({ posts }) => {
         }
       </div>
       </main>
+      {isModalOpen && (
+        <UserModal onClose={() => setModalOpen(false)} onSubmit={handelAddUser} />
+      )}
     </div>
   );
 }

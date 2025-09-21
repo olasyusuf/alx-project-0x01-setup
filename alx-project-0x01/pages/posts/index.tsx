@@ -12,11 +12,9 @@ const Posts: React.FC<PostsPageProps> = ({ posts }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [post, setPost] = useState<PostData | null>(null);
 
-
   const handleAddPost = (newPost: PostData) => {
     setPost({ ...newPost, id: posts.length + 1 });
   };
-
 
   return (
     <div className="flex flex-col h-screen">
