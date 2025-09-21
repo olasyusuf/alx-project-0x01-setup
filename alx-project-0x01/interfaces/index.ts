@@ -4,7 +4,3 @@ export interface PostProps {
   title: string;
   body: string;
 }
-
-export interface PostsPageProps {
-  posts: PostProps[];
-}
